@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Connect4Maui.Views.GamePage"
+             Title="Connect Four">
+
+    <VerticalStackLayout Spacing="10" Padding="10">
+
+        <Label 
+            Text="C'est parti !"
+            FontSize="24"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            Margin="0,10,0,10" />
+
+        <Label 
+            x:Name="CurrentPlayerLabel"
+            Text="{Binding CurrentPlayerText}"
+            FontSize="18"
+            HorizontalOptions="Center"
+            Margin="0,10,0,10" />
+
+        <Border
+            BackgroundColor="Gray"
+            Padding="10"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            MaximumWidthRequest="600"
+            MaximumHeightRequest="500">
+
+            <CollectionView
+                x:Name="GrillePuissance4"
+                SelectionMode="None"
+                ItemsSource="{Binding Grille}">
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout 
+                        Orientation="Vertical" 
+                        Span="7" 
+                        HorizontalItemSpacing="5" 
+                        VerticalItemSpacing="5" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HeightRequest="60" WidthRequest="60">
+                            <Ellipse 
+                                HeightRequest="60" 
+                                WidthRequest="60" 
+                                Fill="LightGray" />
+                            <Ellipse 
+                                HeightRequest="50" 
+                                WidthRequest="50" 
+                                Fill="{Binding Color}" 
+                                VerticalOptions="Center" 
+                                HorizontalOptions="Center" />
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCellTapped" />
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+
+        <Button 
+            Text="Recommencer"
+            Clicked="OnRestartButtonClicked"
+            HorizontalOptions="Center"
+            Margin="0,10,0,10" />
+    </VerticalStackLayout>
+</ContentPage>

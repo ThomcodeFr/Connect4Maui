@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Connect4Maui.Views.MainPage">
+
+    <Grid RowDefinitions="*,Auto">
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout
+                Padding="30,0"
+                Spacing="25">
+                <Image
+                    Source="connect_four.png"
+                    HeightRequest="100"
+                    Aspect="AspectFit"
+                    SemanticProperties.Description="Connect Four Logo Freepik" />
+
+                <Label
+                    Text="Puissance 4"
+                    Style="{StaticResource Headline}"
+                    SemanticProperties.HeadingLevel="Level1" />
+
+                <Button
+                    BackgroundColor="DarkGoldenrod"
+                    TextColor="Black"
+                    Margin="0,50,0,0"
+                    Padding="40, 0"
+                    x:Name="NewGame"
+                    Text="Nouvelle Partie" 
+                    SemanticProperties.Hint="Réaliser une nouvelle partie"
+                    Clicked="GoToGamePage"
+                    HorizontalOptions="Center" />
+
+                <Button
+                    BackgroundColor="DarkGoldenrod"
+                    TextColor="Black"
+                    Padding="65, 0"
+                    x:Name="QuitTheGame"
+                    Text="Quitter"
+                    SemanticProperties.Hint="quitter le jeu"
+                    Clicked="QuitBtn"
+                    HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Label
+            Grid.Row="1"
+            Text="CCI - Projet 2025"
+            FontSize="15"
+            Style="{StaticResource SubHeadline}"
+            SemanticProperties.HeadingLevel="Level5"
+            SemanticProperties.Description="Credits"
+            HorizontalOptions="Center"
+            VerticalOptions="End" />
+    </Grid>
+
+</ContentPage>

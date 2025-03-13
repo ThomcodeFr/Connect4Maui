@@ -3,13 +3,18 @@
     x:Class="Connect4Maui.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Connect4Maui"
+    xmlns:view="clr-namespace:Connect4Maui.Views"
     Shell.FlyoutBehavior="Flyout"
     Title="Connect4Maui">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        Title="Accueil"
+        ContentTemplate="{DataTemplate view:MainPage}"
         Route="MainPage" />
+
+    <ShellContent
+        Title="Jeu"
+        ContentTemplate="{DataTemplate view:GamePage}"
+        Route="GamePage" />
 
 </Shell>
