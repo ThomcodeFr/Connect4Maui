@@ -1,0 +1,64 @@
+# azure-pipelines.yml
+
+# Définir les déclencheurs pour exécuter la pipeline automatiquement sur les commits
+trigger:
+  branches:
+    include:
+      - main  # Déclencher sur la branche principale
+      - develop  # Déclencher sur la branche de développement (optionnel)
+  paths:
+    include:
+      - src/Connect4Maui/*  # Déclencher uniquement sur les changements dans le répertoire de votre projet
+
+# Variables globales
+variables:
+  buildConfiguration: 'Release'  # Configuration de build (Release ou Debug)
+  solution: 'src/Connect4Maui/Connect4Maui.sln'  # Chemin vers votre solution
+  artifactName: 'connect4maui-artifacts'  # Nom de l'artefact publié
+
+# Définir le pool d'agents pour exécuter la pipeline
+pool:
+  vmImage: 'windows-latest'  # Utiliser un agent Windows (nécessaire pour .NET MAUI)
+
+# Étapes de la pipeline
+steps:
+  # Installer le SDK .NET nécessaire (assurez-vous que la version correspond à celle utilisée dans votre projet)
+  - task: UseDotNet@2
+    displayName: 'Installer le SDK .NET'
+    inputs:
+      packageType: 'sdk'
+      version: '8.0.x'  # Remplacez par la version exacte de .NET utilisée (par exemple, 8.0.100)
+
+  # Restaurer les dépendances NuGet
+  - task: DotNetCoreCLI@2
+    displayName: 'Restaurer les dépendances'
+    inputs:
+      command: 'restore'
+      projects: '$(solution)'
+      feedsToUse: 'select'
+
+  # Construire le projet
+  - task: DotNetCoreCLI@2
+    displayName: 'Construire le projet'
+    inputs:
+      command: 'build'
+      projects: '$(solution)'
+      arguments: '--configuration $(buildConfiguration) --no-restore'
+
+  # Publier les artefacts (par exemple, les fichiers binaires générés)
+  - task: DotNetCoreCLI@2
+    displayName: 'Publier les artefacts'
+    inputs:
+      command: 'publish'
+      projects: '$(solution)'
+      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(artifactName) --no-restore'
+      publishWebProjects: false
+      zipAfterPublish: true
+
+  # Publier les artefacts dans Azure DevOps pour une utilisation ultérieure
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publier les artefacts dans Azure DevOps'
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)/$(artifactName)'
+      artifactName: '$(artifactName)'
+      publishLocation: 'Container'
