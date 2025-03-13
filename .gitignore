@@ -1,0 +1,56 @@
+# Ignore build outputs
+bin/
+obj/
+
+# User-specific files
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.swp
+
+# macOS specific files
+.DS_Store
+
+#Visual Studio
+.vs/
+
+# MAUI specific files
+platforms/
+AppPackages/
+*.pdb
+*.apk
+*.aab
+*.ipa
+*.app
+*.xcarchive
+
+# .NET dependencies
+*.dll
+*.exe
+*.log
+*.cache
+*.db
+*.mdb
+
+# Test outputs
+TestResults/
+coverage*
+*.coverage
+*.coveragexml
+
+# Ignore IDE configurations
+.idea/
+*.csproj.user
+
+# Ignore global.json (optional, if you want to keep it local)
+global.json
+
+# Ignore NuGet packages
+packages/
+*.nupkg
+project.lock.json
+
+# Ignore Xamarin/MAUI specific files
+*.xcuserstate
